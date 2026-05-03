@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kabir Chaudhary | Security Researcher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --accent-color: #00ff41;
+            --text-color: #d1d1d1;
+            --border-color: #333;
+            --glitch-color: #ff00c1;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Fira Code', monospace;
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border: 1px solid var(--accent-color);
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+            position: relative;
+            background: rgba(0, 20, 0, 0.2);
+        }
+
+        header::before {
+            content: "SECURE_CONNECTION_ESTABLISHED";
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--bg-color);
+            padding: 0 10px;
+            font-size: 0.7rem;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-family: 'JetBrains Mono', sans-serif;
+            margin: 0;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+        }
+
+        .university-tag {
+            color: var(--glitch-color);
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 5px;
+            display: block;
+        }
+
+        section { margin-bottom: 60px; }
+
+        h2 {
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            background: #111;
+            transition: 0.3s;
+        }
+
+        .skill-category:hover {
+            border-color: var(--glitch-color);
+            box-shadow: 0 0 10px rgba(255, 0, 193, 0.1);
+        }
+
+        .skill-category h3 {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin-top: 0;
+            text-transform: uppercase;
+        }
+
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        .skill-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .skill-list li::before {
+            content: "[+] ";
+            color: var(--accent-color);
+        }
+
+        .project-card {
+            border: 1px solid var(--border-color);
+            background: #111;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.15);
+            transform: scale(1.01);
+        }
+
+        .project-card h3 { color: var(--accent-color); margin-top: 0; }
+
+        .phase-list { font-size: 0.8rem; color: #888; list-style: none; padding-left: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+        .phase-list li::before { content: "✓ "; color: var(--accent-color); }
+
+        /* ── VIDEO SECTION ── */
+        .video-wrapper {
+            border: 1px solid var(--accent-color);
+            background: #000;
+            padding: 4px;
+            position: relative;
+        }
+
+        .video-wrapper::before {
+            content: "STREAM_FEED // INTRO";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--bg-color);
+            padding: 0 10px;
+            font-size: 0.7rem;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            display: block;
+            outline: none;
+        }
+
+        .video-meta {
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        /* ── ASSIGNMENT / PDF SECTION ── */
+        .pdf-wrapper {
+            border: 1px solid var(--glitch-color);
+            background: #0d0d0d;
+            padding: 4px;
+            position: relative;
+        }
+
+        .pdf-wrapper::before {
+            content: "CLASSIFIED_DOCUMENT // READ_ONLY";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--bg-color);
+            padding: 0 10px;
+            font-size: 0.7rem;
+            color: var(--glitch-color);
+            letter-spacing: 1px;
+        }
+
+        .pdf-wrapper iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: block;
+        }
+
+        .pdf-fallback {
+            padding: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .pdf-fallback a {
+            display: inline-block;
+            margin-top: 10px;
+            border: 1px solid var(--glitch-color);
+            color: var(--glitch-color);
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .pdf-fallback a:hover {
+            background: var(--glitch-color);
+            color: #000;
+        }
+
+        footer {
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            padding: 20px;
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        a { color: var(--accent-color); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <h1>KABIR CHAUDHARY</h1>
+            <span class="university-tag">@ Graphic Era Hill University</span>
+            <p>Cybersecurity Specialist &amp; Developer</p>
+        </header>
+
+        <!-- 01 WHO AM I -->
+        <section>
+            <h2>[01] WHO_AMI</h2>
+            <p>Initializing persona... I am a dedicated cybersecurity enthusiast at Graphic Era Hill University. I bridge the gap between technical security and human-centered innovation. I don't just secure systems; I build solutions that improve the human experience.</p>
+        </section>
+
+        <!-- 02 INTRO VIDEO -->
+        <section>
+            <h2>[02] INTRO_TRANSMISSION</h2>
+            <div class="video-wrapper">
+                <!--
+                    ╔══════════════════════════════════════════════════════╗
+                    ║  INSTRUCTIONS:                                       ║
+                    ║  Replace "your-intro-video.mp4" below with the      ║
+                    ║  actual filename of your video file.                 ║
+                    ║  Place the video file in the same folder as this     ║
+                    ║  HTML file, then open it in a browser.               ║
+                    ╚══════════════════════════════════════════════════════╝
+                -->
+                <video controls preload="metadata">
+                    <source src="my_video.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                </video>
+            </div>
+            <p class="video-meta">&gt; File: my_video.mp4</p>
+        </section>
+
+        <!-- 03 SYSTEM CAPABILITIES -->
+        <section>
+            <h2>[03] SYSTEM_CAPABILITIES</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Offensive Security</h3>
+                    <ul class="skill-list">
+                        <li>Ethical Hacking</li>
+                        <li>Phishing Detection Concepts</li>
+                        <li>Email Threat Analysis</li>
+                        <li>Vulnerability Assessment</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Defense &amp; Network</h3>
+                    <ul class="skill-list">
+                        <li>Network Security Fundamentals</li>
+                        <li>Information Security Basics</li>
+                        <li>System Security</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Programming</h3>
+                    <ul class="skill-list">
+                        <li>Python (Security Tooling)</li>
+                        <li>C Programming</li>
+                        <li>C++ (Fundamentals)</li>
+                        <li>Data Structures &amp; Algorithms</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Design &amp; Innovation</h3>
+                    <ul class="skill-list">
+                        <li>Design Thinking Process</li>
+                        <li>User Research &amp; Analysis</li>
+                        <li>UI/UX Strategy</li>
+                        <li>React.js (Basics)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 EXECUTED PROJECTS -->
+        <section>
+            <h2>[04] EXECUTED_PROJECTS</h2>
+            <div class="project-card">
+                <h3>&gt; Combating Loneliness in Apartment Communities</h3>
+                <p>A human-centered innovation project solving social isolation in urban environments using the complete Design Thinking process.</p>
+                <ul class="phase-list">
+                    <li>Empathize</li>
+                    <li>Define</li>
+                    <li>Ideate</li>
+                    <li>Prototype</li>
+                    <li>Test</li>
+                </ul>
+            </div>
+            <div class="project-card">
+                <h3>&gt; Email Threat Detection System</h3>
+                <p>A security-based analysis tool designed to analyze incoming emails and identify potential phishing or malicious threats.</p>
+            </div>
+            <div class="project-card">
+                <h3>&gt; Dynamic Route Planner</h3>
+                <p>Web-based application that finds the shortest path between locations using Dijkstra's Algorithm.</p>
+            </div>
+        </section>
+
+        <!-- 05 ASSIGNMENT -->
+        <section>
+            <h2>[05] ASSIGNMENT_FILE</h2>
+            <div class="pdf-wrapper">
+                <!--
+                    ╔══════════════════════════════════════════════════════╗
+                    ║  INSTRUCTIONS:                                       ║
+                    ║  Replace "your-assignment.pdf" below with the        ║
+                    ║  actual filename of your PDF assignment.             ║
+                    ║  Place the PDF in the same folder as this HTML file. ║
+                    ╚══════════════════════════════════════════════════════╝
+                -->
+                <iframe
+                    src="portfolio_assignment.pdf"
+                    title="Assignment Document">
+                </iframe>
+                <div id="pdf-fallback" class="pdf-fallback" style="display:none;">
+                    <p>&gt; Inline preview not available in this browser.</p>
+                    <a href="portfolio_assignment.pdf" download>[ DOWNLOAD_ASSIGNMENT.PDF ]</a>
+                </div>
+            </div>
+            <p class="video-meta">&gt; File: portfolio_assignment.pdf</p>
+        </section>
+
+        <!-- 06 ARSENAL -->
+        <section>
+            <h2>[06] ARSENAL</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <ul class="skill-list">
+                        <li>Java</li>
+                        <li>C</li>
+                        <li>C++</li>
+                        <li>Python</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Core Concepts</h3>
+                    <ul class="skill-list">
+                        <li>DSA</li>
+                        <li>OOPS</li>
+                        <li>OS</li>
+                        <li>DAA</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools</h3>
+                    <ul class="skill-list">
+                        <li>Java Swing</li>
+                        <li>MySQL</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 07 CONTACT -->
+        <section>
+            <h2>[07] PING_KABIR</h2>
+            <p>MAIL: <a href="mailto:kabirc152@gmail.com">kabirc152@gmail.com</a></p>
+            <p>LINKEDIN: <a href="https://linkedin.com/in/kabir-chaudhary-800baa3a9" target="_blank">kabir-chaudhary-800baa3a9</a></p>
+        </section>
+
+        <footer>LOG_OFF // 2026 // KABIR_CHAUDHARY_PORTFOLIO</footer>
+
+    </div>
+</body>
+</html>
