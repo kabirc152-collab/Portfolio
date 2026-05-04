@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KABIR CHAUDHARY | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* ============ KABIR PORTFOLIO STYLES ============ */
+        :root {
+            --bg-color: #0a0a0a;
+            --accent-color: #00ff41;
+            --text-color: #d1d1d1;
+            --border-color: #333;
+            --glitch-color: #ff00c1;
+            --secondary-glitch: #00fff9;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Fira Code', monospace;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* MATRIX CANVAS BACKGROUND */
+        #matrix-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        /* SCANNING LINE EFFECT */
+        body::after {
+            content: "";
+            position: fixed;
+            top: -100%; left: 0;
+            width: 100%; height: 5px;
+            background: rgba(0, 255, 65, 0.15);
+            box-shadow: 0 0 15px var(--accent-color);
+            animation: scanline 10s linear infinite;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        @keyframes scanline {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            position: relative;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid var(--accent-color);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            color: var(--accent-color);
+            font-family: 'JetBrains Mono', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+        .nav-links { list-style: none; display: flex; gap: 16px; flex-wrap: wrap; }
+        .nav-links a {
+            color: var(--text-color);
+            font-size: 0.75rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent-color); text-shadow: 0 0 5px var(--accent-color); }
+
+        /* HEADER */
+        header {
+            border: 1px solid var(--accent-color);
+            padding: 25px;
+            margin-bottom: 40px;
+            background: rgba(0, 15, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+        header::before {
+            content: "SECURE_CONNECTION_ESTABLISHED";
+            position: absolute;
+            top: -12px; right: 20px;
+            background: var(--bg-color);
+            padding: 0 10px;
+            font-size: 0.7rem;
+            color: var(--accent-color);
+        }
+        .profile-photo {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            flex-shrink: 0;
+        }
+        .header-text h1 {
+            color: var(--accent-color);
+            font-family: 'JetBrains Mono', sans-serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+        }
+        .cursor { animation: blink 1s steps(2) infinite; color: var(--accent-color); }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .university-tag { color: var(--glitch-color); font-size: 0.9rem; font-weight: bold; display: block; margin-top: 5px;}
+
+        /* SECTIONS */
+        section { margin-bottom: 60px; scroll-margin-top: 100px; }
+        h2 {
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            padding-right: 20px;
+        }
+
+        /* SKILLS GRID */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .skill-category {
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            background: rgba(17, 17, 17, 0.85);
+            transition: 0.4s;
+        }
+        .skill-category:hover {
+            border-color: var(--glitch-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 0, 193, 0.1);
+        }
+        .skill-category h3 {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .skill-row::before { content: "[+] "; color: var(--accent-color); }
+        .bar { height: 4px; background: #1a1a1a; margin-bottom: 15px; border: 1px solid #222; }
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), var(--glitch-color));
+            width: 0;
+            transition: width 2s cubic-bezier(0.17, 0.85, 0.43, 1);
+        }
+
+        /* PROJECTS */
+        .project-card {
+            border: 1px solid var(--border-color);
+            background: rgba(17, 17, 17, 0.85);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .project-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            transform: scale(1.01);
+        }
+        .project-card h3 { color: var(--accent-color); margin-bottom: 10px; }
+        .phase-list {
+            font-size: 0.8rem; color: #888;
+            list-style: none; display: flex; flex-wrap: wrap; gap: 10px;
+            margin-top: 10px;
+        }
+        .phase-list li::before { content: "✓ "; color: var(--accent-color); }
+
+        /* GOALS */
+        .goals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .goal-card {
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            background: rgba(17, 17, 17, 0.85);
+            position: relative;
+            transition: 0.3s;
+        }
+        .goal-card:hover { border-color: var(--accent-color); }
+        .goal-number {
+            font-size: 2rem; color: rgba(0, 255, 65, 0.05);
+            position: absolute; top: 10px; right: 15px;
+            font-family: 'JetBrains Mono', sans-serif;
+        }
+        .goal-card h3 { color: var(--accent-color); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 8px;}
+        .goal-card p { font-size: 0.8rem; color: #aaa; }
+
+        /* TABS */
+        .assignment-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn {
+            background: #111; border: 1px solid var(--border-color);
+            color: var(--text-color); padding: 8px 18px; cursor: pointer;
+            font-family: inherit; font-size: 0.8rem;
+        }
+        .tab-btn.active { border-color: var(--accent-color); color: var(--accent-color); box-shadow: 0 0 10px rgba(0,255,65,0.2); }
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .pdf-wrapper { border: 1px solid var(--glitch-color); padding: 4px; position: relative; background: #000; }
+        .pdf-wrapper::before { content: "CLASSIFIED // READ_ONLY"; position: absolute; top: -12px; left: 10px; background: #0a0a0a; color: var(--glitch-color); font-size: 0.6rem; padding: 0 5px; }
+        iframe { width: 100%; height: 600px; border: none; }
+
+        /* BACK TO TOP */
+        .back-to-top {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #111; color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 14px; cursor: pointer; display: none;
+            z-index: 1001; font-family: inherit;
+        }
+
+        footer { text-align: center; padding: 40px; opacity: 0.6; font-size: 0.7rem; border-top: 1px solid var(--border-color); margin-top: 40px;}
+        a { color: var(--accent-color); text-decoration: none; transition: 0.3s; }
+        a:hover { text-shadow: 0 0 8px var(--accent-color); }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; text-align: center; }
+            .nav-inner { flex-direction: column; gap: 10px; }
+            .header-text h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="nav-logo" id="logo">> KABIR_C</div>
+            <ul class="nav-links">
+                <li><a href="#who">WHO_AMI</a></li>
+                <li><a href="#goals">GOALS</a></li>
+                <li><a href="#skills">SKILLS</a></li>
+                <li><a href="#projects">PROJECTS</a></li>
+                <li><a href="#academic">ACADEMIC</a></li>
+                <li><a href="#arsenal">ARSENAL</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <img src="https://via.placeholder.com/120" alt="Kabir Chaudhary" class="profile-photo">
+            <div class="header-text">
+                <h1 id="typed-text"></h1><span class="cursor">_</span>
+                <span class="university-tag">@ Graphic Era Hill University</span>
+                <p>B.Tech CSE (Cybersecurity) | Cybersecurity Specialist & Developer</p>
+            </div>
+        </header>
+
+        <!-- 01 WHO AMI -->
+        <section id="who">
+            <h2 class="decrypt" data-text="[01] WHO_AMI">[01] WHO_AMI</h2>
+            <p>Initializing persona... I am a dedicated cybersecurity enthusiast at Graphic Era Hill University. I bridge the gap between technical security and human-centered innovation. I don't just secure systems — I build solutions that improve the human experience.</p>
+        </section>
+
+        <!-- 02 INTRO -->
+        <section id="intro">
+            <h2 class="decrypt" data-text="[02] INTRO_TRANSMISSION">[02] INTRO_TRANSMISSION</h2>
+            <div style="border: 1px solid var(--accent-color); padding: 5px; background: #000; position: relative;">
+                <video controls style="width: 100%; display: block;">
+                    <source src="my_video.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                </video>
+            </div>
+            <p style="font-size: 0.7rem; color: #555; margin-top: 10px;">> File: my_video.mp4</p>
+        </section>
+
+        <!-- 03 MISSIONS (GOALS) -->
+        <section id="goals">
+            <h2 class="decrypt" data-text="[03] MISSION_OBJECTIVES">[03] MISSION_OBJECTIVES</h2>
+            <div class="goals-grid" id="goals-container">
+                <!-- Data injected by JS -->
+            </div>
+        </section>
+
+        <!-- 04 SKILLS -->
+        <section id="skills">
+            <h2 class="decrypt" data-text="[04] SYSTEM_CAPABILITIES">[04] SYSTEM_CAPABILITIES</h2>
+            <div class="skills-grid" id="skills-container">
+                <!-- Data injected by JS -->
+            </div>
+        </section>
+
+        <!-- 05 PROJECTS -->
+        <section id="projects">
+            <h2 class="decrypt" data-text="[05] EXECUTED_PROJECTS">[05] EXECUTED_PROJECTS</h2>
+            
+            <div class="project-card">
+                <h3>> Combating Loneliness in Apartment Communities</h3>
+                <p>A human-centered innovation project solving social isolation in urban environments using the complete Design Thinking process.</p>
+                <ul class="phase-list">
+                    <li>Empathize</li><li>Define</li><li>Ideate</li><li>Prototype</li><li>Test</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <h3>> Email Threat Detection System</h3>
+                <p>A security-based analysis tool designed to analyze incoming emails and identify potential phishing or malicious threats.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>> Dynamic Route Planner</h3>
+                <p>Web-based application that finds the shortest path between locations using Dijkstra's Algorithm.</p>
+            </div>
+        </section>
+
+        <!-- 06 ACADEMIC -->
+        <section id="academic">
+            <h2 class="decrypt" data-text="[06] ACADEMIC_ASSIGNMENTS">[06] ACADEMIC_ASSIGNMENTS</h2>
+            <div class="assignment-tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'tab0')">[ Portfolio Assignment ]</button>
+                <button class="tab-btn" onclick="openTab(event, 'tab1')">[ Cover Letter ]</button>
+                <button class="tab-btn" onclick="openTab(event, 'tab2')">[ Presentation ]</button>
+                <button class="tab-btn" onclick="openTab(event, 'tab3')">[ 50 Learnings ]</button>
+            </div>
+
+            <div id="tab0" class="tab-content active">
+                <div class="pdf-wrapper"><iframe src="portfolio_assignment.pdf"></iframe></div>
+            </div>
+            <div id="tab1" class="tab-content">
+                <img src="cover_letter.jpg" alt="Cover Letter" style="width:100%; border:1px solid var(--border-color);">
+            </div>
+            <div id="tab2" class="tab-content">
+                <div style="padding:50px; text-align:center; border:1px dashed #444;">
+                    <span>📊</span><br>PRESENTATION FILE NOT UPLOADED YET<br>
+                    <small>// Coming Soon</small>
+                </div>
+            </div>
+            <div id="tab3" class="tab-content">
+                <div class="pdf-wrapper"><iframe src="50_learnings.pdf"></iframe></div>
+            </div>
+        </section>
+
+        <!-- 07 ARSENAL -->
+        <section id="arsenal">
+            <h2 class="decrypt" data-text="[07] ARSENAL">[07] ARSENAL</h2>
+            <div class="skills-grid" id="arsenal-container">
+                <!-- Data injected by JS -->
+            </div>
+        </section>
+
+        <!-- 08 CONTACT -->
+        <section id="contact">
+            <h2 class="decrypt" data-text="[08] PING_KABIR">[08] PING_KABIR</h2>
+            <p>MAIL: <a href="mailto:kabirc152@gmail.com">kabirc152@gmail.com</a></p>
+            <p>LINKEDIN: <a href="https://linkedin.com/in/kabir-chaudhary-800baa3a9">kabir-chaudhary-800baa3a9</a></p>
+            <p>GITHUB: <a href="https://github.com/kabirc152-collab">github.com/kabirc152-collab</a></p>
+        </section>
+
+        <footer>
+            LOG_OFF // 2026 // KABIR_CHAUDHARY_PORTFOLIO
+        </footer>
+    </div>
+
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲ TOP</button>
+
+    <script>
+        // --- MATRIX RAIN ANIMATION ---
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(10, 10, 10, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#00ff41";
+            ctx.font = fontSize + "px monospace";
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 35);
+
+        // --- DECRYPT TEXT EFFECT ---
+        function decryptText(element) {
+            const original = element.getAttribute('data-text');
+            const chars = "!@#$%^&*()_+{}:<>?0123456789";
+            let iteration = 0;
+            const interval = setInterval(() => {
+                element.innerText = original.split("").map((char, index) => {
+                    if(index < iteration) return original[index];
+                    return chars[Math.floor(Math.random() * chars.length)];
+                }).join("");
+                if(iteration >= original.length) clearInterval(interval);
+                iteration += 1 / 3;
+            }, 30);
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) decryptText(entry.target);
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.decrypt').forEach(h2 => observer.observe(h2));
+
+        // --- TYPING ANIMATION ---
+        const fullText = "KABIR CHAUDHARY";
+        let charIndex = 0;
+        function typeWriter() {
+            if (charIndex < fullText.length) {
+                document.getElementById("typed-text").innerHTML += fullText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        typeWriter();
+
+        // --- FULL RESTORED DATA ---
+        const skillsData = [
+            { cat: "Offensive Security", items: [["Ethical Hacking", 80], ["Phishing Detection Concepts", 75], ["Email Threat Analysis", 78], ["Vulnerability Assessment", 70]] },
+            { cat: "Defense & Network", items: [["Network Security Fundamentals", 75], ["Information Security Basics", 80], ["System Security", 70]] },
+            { cat: "Programming", items: [["Python (Security Tooling)", 85], ["C Programming", 80], ["C++ (Fundamentals)", 70], ["Data Structures & Algorithms", 78]] },
+            { cat: "Design & Innovation", items: [["Design Thinking Process", 85], ["User Research & Analysis", 75], ["UI/UX Strategy", 70], ["React.js (Basics)", 65]] }
+        ];
+
+        const goalsData = [
+            ["Master Cybersecurity", "Achieve deep expertise in offensive and defensive security, ethical hacking, and threat intelligence as a B.Tech CSE (Cybersecurity) student."],
+            ["Industry Certifications", "Earn globally recognized certifications such as CEH, CompTIA Security+, and OSCP to validate real-world security skills."],
+            ["Build Security Tools", "Develop Python-based security tools and open-source projects that solve real problems in threat detection and vulnerability analysis."],
+            ["Secure a Top Role", "Land a position as a Security Analyst or Penetration Tester at a leading cybersecurity firm or technology company."],
+            ["Contribute to Research", "Publish security research, participate in CTF competitions, and contribute to the global cybersecurity community through responsible disclosure."],
+            ["Bridge Tech & People", "Apply design thinking to cybersecurity, creating solutions that are not only technically sound but also accessible and human-centered."]
+        ];
+
+        const arsenalData = [
+            { cat: "Languages", items: ["Java", "C", "C++", "Python"] },
+            { cat: "Core Concepts", items: ["DSA", "OOPS", "OS", "DAA"] },
+            { cat: "Tools", items: ["Java Swing", "MySQL"] }
+        ];
+
+        // INJECT DATA
+        const skillsContainer = document.getElementById('skills-container');
+        skillsData.forEach(s => {
+            let html = `<div class="skill-category"><h3>${s.cat}</h3>`;
+            s.items.forEach(item => {
+                html += `
+                    <div class="skill-row"><span>${item[0]}</span><span>${item[1]}%</span></div>
+                    <div class="bar"><div class="bar-fill" data-pct="${item[1]}"></div></div>`;
+            });
+            skillsContainer.innerHTML += html + `</div>`;
+        });
+
+        const goalsContainer = document.getElementById('goals-container');
+        goalsData.forEach((g, idx) => {
+            goalsContainer.innerHTML += `
+                <div class="goal-card">
+                    <div class="goal-number">${String(idx + 1).padStart(2, '0')}</div>
+                    <h3>${g[0]}</h3>
+                    <p>${g[1]}</p>
+                </div>`;
+        });
+
+        const arsenalContainer = document.getElementById('arsenal-container');
+        arsenalData.forEach(a => {
+            let items = a.items.map(it => `<li style="list-style:none; font-size:0.85rem; padding:5px 0; border-bottom:1px solid #222;">[#] ${it}</li>`).join('');
+            arsenalContainer.innerHTML += `<div class="skill-category"><h3>${a.cat}</h3><ul>${items}</ul></div>`;
+        });
+
+        // --- TABS LOGIC ---
+        function openTab(evt, tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        // --- SCROLL ANIMATIONS ---
+        window.onscroll = () => {
+            const btn = document.getElementById("backToTop");
+            btn.style.display = window.scrollY > 400 ? "block" : "none";
+            
+            document.querySelectorAll('.bar-fill').forEach(bar => {
+                if(bar.getBoundingClientRect().top < window.innerHeight) {
+                    bar.style.width = bar.dataset.pct + '%';
+                }
+            });
+        };
+
+        // Re-calculate matrix on resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
